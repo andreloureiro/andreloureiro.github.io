@@ -1,0 +1,9 @@
+- name: About
+  link: /about
+  external: false
+- name: Blog
+  link: /blog
+  external: false
+- name: Side Projects
+  link: /side-projects
+  external: false

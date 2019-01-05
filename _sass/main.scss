@@ -1,0 +1,189 @@
+$breakpoints: (
+  xs: 576px,
+  sm: 768px,
+  md: 992px,
+  lg: 1200px
+);
+
+// Respond above.
+@mixin respond-above($breakpoint) {
+  // If the breakpoint exists in the map.
+  @if map-has-key($breakpoints, $breakpoint) {
+    // Get the breakpoint value.
+    $breakpoint-value: map-get($breakpoints, $breakpoint);
+
+    // Write the media query.
+    @media (min-width: $breakpoint-value) {
+      @content;
+    }
+
+    // If the breakpoint doesn't exist in the map.
+  } @else {
+    // Log a warning.
+    @warn 'Invalid breakpoint: #{$breakpoint}.';
+  }
+}
+
+// Constants
+
+$nav-height: 72px;
+
+$bg-color: white;
+
+$primary-color: #333;
+$primary-font-family: Avenir, system-ui, -apple-system, BlinkMacSystemFont,
+  Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
+  Helvetica Neue, sans-serif;
+
+$font-size-xxl: 4.247rem;
+$font-size-xl: 2.0625rem;
+$font-size-lg: 1.25rem;
+$font-size-md: 1rem;
+$font-size-sm: 0.8125rem;
+
+$golden-ratio: 1.618;
+
+// Abstract
+
+%text {
+  font-family: $primary-font-family;
+  font-size: $font-size-md;
+  line-height: $font-size-md * $golden-ratio;
+}
+
+%title {
+  font-family: $primary-font-family;
+  font-size: $font-size-xl;
+  line-height: $font-size-xl * $golden-ratio;
+}
+
+%super-title {
+  font-family: $primary-font-family;
+  font-size: $font-size-xxl;
+  line-height: 3.625rem;
+}
+
+// Base
+
+body {
+  margin: 0;
+  background: $bg-color;
+  color: $primary-color;
+  font-family: $primary-font-family;
+}
+
+a {
+  color: $primary-color;
+}
+
+a:visited {
+  color: #777;
+}
+
+h1 {
+  @extend %title;
+}
+
+p {
+  @extend %text;
+}
+
+// Components
+
+.super-title {
+  @extend %super-title;
+}
+
+.nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+
+  @include respond-above(xs) {
+    position: relative;
+  }
+
+  .nav__container {
+    display: flex;
+    height: $nav-height;
+    margin: 0 auto;
+    width: 100%;
+    align-items: center;
+    justify-content: space-around;
+    background: $bg-color;
+
+    @include respond-above(xs) {
+      width: 80%;
+      align-items: center;
+      justify-content: flex-end;
+    }
+  }
+
+  .nav__item {
+    margin-left: 10px;
+    padding: 4px 6px;
+    font-size: $font-size-sm;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 1.1px;
+  }
+}
+
+// Layouts
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+// Page
+
+.page__container {
+  width: 94vw;
+  margin: 0 auto;
+
+  @include respond-above(sm) {
+    width: 80%;
+  }
+}
+
+// Home
+
+.home__desc {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  height: 100vh;
+
+  @include respond-above(md) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .desc__title {
+    width: auto;
+
+    @include respond-above(lg) {
+      width: 440px;
+    }
+
+    .title__text {
+      margin: 0;
+      font-weight: bold;
+
+      @include respond-above(md) {
+      }
+    }
+  }
+
+  .desc__content {
+    width: auto;
+
+    @include respond-above(md) {
+      width: 410px;
+    }
+  }
+}

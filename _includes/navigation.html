@@ -1,0 +1,18 @@
+<nav class="nav">
+  <div class="nav__container">
+    {% for item in site.data.navigation %}
+    <a
+      class="nav__item"
+      href="{{ item.link }}"
+      {%
+      if
+      item.external
+      %}target="_blank"
+      {%
+      endif
+      %}
+      >{{ item.name }}</a
+    >
+    {% endfor %}
+  </div>
+</nav>
